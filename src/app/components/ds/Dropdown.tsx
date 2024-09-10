@@ -20,7 +20,11 @@ export const Dropdown = ({
 
   function onItemChange(value: string) {
     setSearch('');
-    props.onChange(value);
+    if(value === props.value) {
+      props.onChange('');
+    } else {
+      props.onChange(value);
+    }
   }
 
   function onSearchChange(value: string) {
