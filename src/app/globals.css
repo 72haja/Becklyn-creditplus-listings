@@ -2,26 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .unnamed-character-style-1 {
+    @apply font-gotham not-italic font-bold text-display-xl text-unnamed-color-292929;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  .unnamed-character-style-2 {
+    @apply font-gotham not-italic font-medium text-display-lg text-unnamed-color-292929;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .unnamed-character-style-3 {
+    @apply font-gotham not-italic font-medium text-display-md text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-4 {
+    @apply font-gotham not-italic font-medium text-display-sm leading-9 text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-5 {
+    @apply font-gotham not-italic font-medium text-display-xs leading-[30px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-6 {
+    @apply font-gotham not-italic font-medium text-text-xl leading-[28px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-7 {
+    @apply font-gotham not-italic font-medium text-text-lg leading-[26px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-8 {
+    @apply font-gotham not-italic font-medium text-text-md text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-9 {
+    @apply font-gotham not-italic font-medium text-text-sm text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-10 {
+    @apply font-gotham not-italic font-medium text-text-xs text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-11 {
+    @apply font-gotham not-italic font-normal text-text-xs text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-12 {
+    @apply font-gotham not-italic font-normal text-text-sm text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-13 {
+    @apply font-gotham not-italic font-normal text-text-md text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-14 {
+    @apply font-gotham not-italic font-normal text-text-lg leading-[26px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-15 {
+    @apply font-gotham not-italic font-normal text-text-xl leading-[28px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-16 {
+    @apply font-gotham not-italic font-normal text-display-xs leading-[30px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-17 {
+    @apply font-gotham not-italic font-normal text-display-md text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-18 {
+    @apply font-gotham not-italic font-normal text-display-sm leading-[36px] text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-19 {
+    @apply font-gotham not-italic font-normal text-display-lg text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-20 {
+    @apply font-gotham not-italic font-normal text-display-xl text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-21 {
+    @apply font-gotham not-italic font-bold text-display-2xl text-unnamed-color-292929;
+  }
+
+  .unnamed-character-style-22 {
+    @apply font-gotham not-italic font-normal text-display-2xl text-unnamed-color-292929;
   }
 }
