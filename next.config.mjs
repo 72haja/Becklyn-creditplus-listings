@@ -3,9 +3,7 @@ import { generateSchema } from '@gql.tada/cli-utils';
 
 const nextConfig = {};
 
-console.log("startup")
-
-const accessToken = 'eOFVBhodhL0U9ekDRaV-HyQECiBhJBIdQ6SWYio6_HU';
+const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 
 await generateSchema({
   input: 'https://graphql.contentful.com/content/v1/spaces/bt6alqgdjs1c/environments/master',
@@ -14,6 +12,11 @@ await generateSchema({
     Authorization: `Bearer ${accessToken}`,
   },
   tsconfig: undefined,
+  env: {
+    ACCESS_TOKEN: accessToken,
+    SPACE_ID: process.env.SPACE_ID,
+    ENVIRONMENT: process.env.ENVIRONMENT,
+  },
 });
 
 export default nextConfig;
