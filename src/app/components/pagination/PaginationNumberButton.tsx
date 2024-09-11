@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { useMemo } from 'react';
 
 export interface ButtonProps {
   active?: boolean;

@@ -1,6 +1,5 @@
-import { FiMapPin, FiClock } from 'react-icons/fi'; // Icons für Standort und Uhrzeit
-import { FaArrowRight } from 'react-icons/fa';
 import { StellenListButton } from '@/app/components/StellenList/StellenListButton';
+import { FiClock, FiMapPin } from 'react-icons/fi'; // Icons für Standort und Uhrzeit
 
 export interface StellenListElementProps {
   title: string;

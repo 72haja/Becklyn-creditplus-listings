@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 export interface ButtonProps {

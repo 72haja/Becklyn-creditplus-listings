@@ -5,8 +5,6 @@ import { DropdownActivator } from '../../../app/components/ds/DropdownActivator'
 const meta = {
   title: 'ds/Dropdown/DropdownActivator',
   component: DropdownActivator,
-  parameters: {
-  },
   tags: ['autodocs'],
   args: {},
   render: function Render(args): JSX.Element {

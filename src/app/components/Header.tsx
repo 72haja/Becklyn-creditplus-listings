@@ -1,6 +1,5 @@
 import { Dropdown } from "@/app/components/ds/Dropdown";
 import { graphql } from "@/app/services/graphql";
-import { useState } from "react";
 import { useQuery } from 'urql';
 
 const BereichsQuery = graphql(`
@@ -88,7 +87,8 @@ export const Header = ({
         <Dropdown
           placeholder='Wähle einen Bereich'
           items={allWorkTypesResult.data?.bereichCollection?.items
-            .map((item: any) => ({ label: item.name, value: item.id }))
+            .filter((item) => item !== null)
+            .map((item) => ({ label: item.name, value: item.id }))
             ?? []
           }
           loading={allWorkTypesResult.fetching}
@@ -98,7 +98,8 @@ export const Header = ({
         <Dropdown
           placeholder='Wähle eine Stadt'
           items={allLocationsResult.data?.stadtCollection?.items
-            .map((item: any) => ({ label: item.stadt, value: item.id }))
+            .filter((item) => item !== null)
+            .map((item) => ({ label: item.stadt, value: item.id }))
             ?? []
           }
           loading={allLocationsResult.fetching}
@@ -108,7 +109,8 @@ export const Header = ({
         <Dropdown
           placeholder='Wähle ein Erfahrungslevel'
           items={allExperienceLevelsResult.data?.erfahrungslevelCollection?.items
-            .map((item: any) => ({ label: item.erfahrungslevel, value: item.id }))
+            .filter((item) => item !== null)
+            .map((item) => ({ label: item.erfahrungslevel, value: item.id }))
             ?? []
           }
           loading={allExperienceLevelsResult.fetching}

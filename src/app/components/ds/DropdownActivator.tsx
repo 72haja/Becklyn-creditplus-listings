@@ -82,9 +82,9 @@ export const DropdownActivator = ({
         {
           props.loading
             ? <div className="flex gap-1 py-1">
-                <div className="animate-[pulse_1s_infinite_0ms] h-2 w-2 bg-primary-200 rounded"></div>
-                <div className="animate-[pulse_1s_infinite_300ms] h-2 w-2 bg-primary-200 rounded"></div>
-                <div className="animate-[pulse_1s_infinite_600ms] h-2 w-2 bg-primary-200 rounded"></div>
+              <div className="animate-[pulse_1s_infinite_0ms] h-2 w-2 bg-primary-200 rounded"></div>
+              <div className="animate-[pulse_1s_infinite_300ms] h-2 w-2 bg-primary-200 rounded"></div>
+              <div className="animate-[pulse_1s_infinite_600ms] h-2 w-2 bg-primary-200 rounded"></div>
             </div>
             : <input
               type='text'
