@@ -24,8 +24,7 @@ export const PaginationNumberButton = ({
       return ['text-primary', 'bg-primary-75 hover:bg-primary-100 active:bg-primary-200'];
     }
     return ['text-gray-600', 'bg-transparent hover:bg-gray-100 active:bg-gray-200'];
-  }
-    , [active]);
+  }, [active, isPlaceholder]);
 
 
   return (

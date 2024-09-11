@@ -17,12 +17,12 @@ export const Pagination = ({
 
 
   function onClickPrev() {
-    if(props.current === 1) return;
+    if (props.current === 1) return;
     props.onCurrentChange(props.current - 1);
   }
 
   function onClickNext() {
-    if(props.current === props.total) return;
+    if (props.current === props.total) return;
     props.onCurrentChange(props.current + 1);
   }
 
@@ -31,7 +31,7 @@ export const Pagination = ({
   }
 
   const shownButtons = useMemo(() => {
-    if(props.total <= 5) {
+    if (props.total <= 5) {
       return Array.from({ length: props.total }, (_, i) => i + 1).map((i) => (
         <PaginationNumberButton key={i} active={props.current === i} number={i} onClick={() => onClickNumber(i)} />
       ));
@@ -45,26 +45,24 @@ export const Pagination = ({
       buttons.push(<PaginationNumberButton key={-1} number={NaN} isPlaceholder />);
     }
     for (let i = Math.max(2, props.current - 1); i < Math.min(props.total, props.current + 2); i++) {
-      if (i !== 1 && i !== 2 && i !== props.total -1 && i !== props.total) {
+      if (i !== 1 && i !== 2 && i !== props.total - 1 && i !== props.total) {
         buttons.push(<PaginationNumberButton key={i} active={props.current === i} number={i} onClick={() => onClickNumber(i)} />);
       }
     }
     if (props.current < props.total - 2) {
       buttons.push(<PaginationNumberButton key={-2} number={NaN} isPlaceholder />);
     }
-    buttons.push(<PaginationNumberButton key={props.total - 1 } active={props.current === props.total - 1} number={props.total - 1} onClick={() => onClickNumber(props.total - 1)} />);
+    buttons.push(<PaginationNumberButton key={props.total - 1} active={props.current === props.total - 1} number={props.total - 1} onClick={() => onClickNumber(props.total - 1)} />);
     buttons.push(<PaginationNumberButton key={props.total} active={props.current === props.total} number={props.total} onClick={() => onClickNumber(props.total)} />);
 
     return buttons;
-  },
-    [props.current, props.total]
-  );
+  }, [props.current, props.total]);
 
   return (
     <div className='w-full flex justify-between items-center border-t border-gray-200 pt-[20.5px]'>
       <PaginationButton direction='prev' onClick={onClickPrev} />
       <div className='flex'>
-        { shownButtons }
+        {shownButtons}
       </div>
       <PaginationButton direction='next' onClick={onClickNext} />
     </div>

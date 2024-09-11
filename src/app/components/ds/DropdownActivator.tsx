@@ -12,7 +12,7 @@ export type DropdownProps = {
   onChange?: (value: string) => void,
   onUpdateIsOpen: (isOpen: boolean) => void,
   onClear?: () => void,
-  list: React.JSXElementConstructor<any>,
+  list: React.ReactNode,
 };
 
 export const DropdownActivator = ({

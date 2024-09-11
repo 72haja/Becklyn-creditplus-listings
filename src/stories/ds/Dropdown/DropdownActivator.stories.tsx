@@ -32,7 +32,7 @@ export const Primary: Story = {
   }
 };
 
-export const isOpen: Story = {
+export const IsOpen: Story = {
   args: {
     label: 'Standort',
     placeholder: "Wähle einen Standort",

@@ -22,7 +22,7 @@ export const Dropdown = ({
 
   function onItemChange(value: string) {
     setSearch('');
-    if(value === props.value) {
+    if (value === props.value) {
       props.onChange('');
     } else {
       props.onChange(value);
@@ -38,7 +38,7 @@ export const Dropdown = ({
   const shownValue = useMemo(() => itemsAreStrings
     ? props.value
     : props.items.find((item: DropdownListElementType) => item.value === props.value)?.label
-  , [props.value, props.items]);
+    , [props.value, props.items, itemsAreStrings]);
 
   return (
     <div className='relative'>
