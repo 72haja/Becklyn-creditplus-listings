@@ -85,42 +85,36 @@ export const Header = ({
       </span>
       <span className="pt-[18px] unnamed-character-style-2 leading-[68px] font-bold text-secondary text-center">Hier beginnt deine Zukunft</span>
       <div className="grid grid-cols-3 gap-6 mt-[30px]">
-        {
-          allWorkTypesResult.data?.bereichCollection?.items
-            ? <Dropdown
-              placeholder='Wähle einen Bereich'
-              items={allWorkTypesResult.data?.bereichCollection?.items
-                .map((item: any) => ({ label: item.name, value: item.id }))
-              }
-              value={props.workType}
-              onChange={props.onWorkTypeChange}
-            />
-            : <span>...</span>
-        }
-        {
-          allLocationsResult.data?.stadtCollection?.items
-            ? <Dropdown
-              placeholder='Wähle eine Stadt'
-              items={allLocationsResult.data?.stadtCollection?.items
-                .map((item: any) => ({ label: item.stadt, value: item.id }))
-              }
-              value={props.location}
-              onChange={props.onLocationChange}
-            />
-            : <span>...</span>
-        }
-        {
-          allExperienceLevelsResult.data?.erfahrungslevelCollection?.items
-            ? <Dropdown
-              placeholder='Wähle ein Erfahrungslevel'
-              items={allExperienceLevelsResult.data?.erfahrungslevelCollection?.items
-                .map((item: any) => ({ label: item.erfahrungslevel, value: item.id }))
-              }
-              value={props.experienceLevel}
-              onChange={props.onExperienceLevelChange}
-            />
-            : <span>...</span>
-        }
+        <Dropdown
+          placeholder='Wähle einen Bereich'
+          items={allWorkTypesResult.data?.bereichCollection?.items
+            .map((item: any) => ({ label: item.name, value: item.id }))
+            ?? []
+          }
+          loading={allWorkTypesResult.fetching}
+          value={props.workType}
+          onChange={props.onWorkTypeChange}
+        />
+        <Dropdown
+          placeholder='Wähle eine Stadt'
+          items={allLocationsResult.data?.stadtCollection?.items
+            .map((item: any) => ({ label: item.stadt, value: item.id }))
+            ?? []
+          }
+          loading={allLocationsResult.fetching}
+          value={props.location}
+          onChange={props.onLocationChange}
+        />
+        <Dropdown
+          placeholder='Wähle ein Erfahrungslevel'
+          items={allExperienceLevelsResult.data?.erfahrungslevelCollection?.items
+            .map((item: any) => ({ label: item.erfahrungslevel, value: item.id }))
+            ?? []
+          }
+          loading={allExperienceLevelsResult.fetching}
+          value={props.experienceLevel}
+          onChange={props.onExperienceLevelChange}
+        />
       </div>
     </div>
   );

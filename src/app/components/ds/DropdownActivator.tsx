@@ -5,6 +5,7 @@ export type DropdownProps = {
   label?: string,
   placeholder?: string,
   disabled?: boolean,
+  loading?: boolean,
   isOpen: boolean,
   value?: string,
   search?: string,
@@ -41,6 +42,11 @@ export const DropdownActivator = ({
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
+  function handleOnClick() {
+    if (props.disabled || props.loading) return
+    props.onUpdateIsOpen(true);
+  }
+
   function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Backspace' && props.search.length < 1) {
       props.onClear();
@@ -50,7 +56,7 @@ export const DropdownActivator = ({
   return (
     <div
       ref={wrapperRef}
-      className='w-full group'
+      className={`w-full group relative ${props.disabled && 'opacity-30'}`}
     >
       {
         props.label &&
@@ -63,8 +69,9 @@ export const DropdownActivator = ({
           ${isOpen ? 'border-primary-300' : 'border-[#C3C3C3]'}
           transition duration-150 ease-in-out
           focus-within:ring-4 focus-within:ring-primary-100
-        focus-within:border-primary-300 hover:border-[#838383]`}
-        onClick={() => props.onUpdateIsOpen(true)}
+        focus-within:border-primary-300 hover:border-[#838383]
+          ${props.loading && 'cursor-wait'}`}
+        onClick={handleOnClick}
       >
         {
           props.value && <span className='unnamed-character-style-8 text-gray-900 group-hover:text-gray-900 
@@ -72,19 +79,28 @@ export const DropdownActivator = ({
             {typeof props.value === 'string' ? props.value : props.value.label}
           </span>
         }
-        <input
-          type='text'
-          placeholder={props.value ? '' : props.placeholder}
-          value={props.search}
-          onChange={(e) => props.onChange(e.target.value)}
-          className={[`flex items-center justify-between w-full rounded-lg
-              focus:outline-none unnamed-character-style-8 text-gray-900 group-hover:text-gray-900 
-              group-focus:text-gray-900 placeholder:text-gray-600 
-              group-hover:placeholder:text-gray-900 group-focus-within:placeholder:text-gray-900`].join(' ')
-          }
-          onKeyDown={handleKeyPress}
-        >
-        </input>
+        {
+          props.loading
+            ? <div className="flex gap-1 py-1">
+                <div className="animate-[pulse_1s_infinite_0ms] h-2 w-2 bg-primary-200 rounded"></div>
+                <div className="animate-[pulse_1s_infinite_300ms] h-2 w-2 bg-primary-200 rounded"></div>
+                <div className="animate-[pulse_1s_infinite_600ms] h-2 w-2 bg-primary-200 rounded"></div>
+            </div>
+            : <input
+              type='text'
+              placeholder={props.value || props.loading ? '' : props.placeholder}
+              value={props.search}
+              onChange={(e) => props.onChange(e.target.value)}
+              className={[`flex items-center justify-between w-full rounded-lg
+                focus:outline-none unnamed-character-style-8 text-gray-900 group-hover:text-gray-900 
+                group-focus:text-gray-900 placeholder:text-gray-600 
+                group-hover:placeholder:text-gray-900 group-focus-within:placeholder:text-gray-900`].join(' ')
+              }
+              onKeyDown={handleKeyPress}
+              disabled={props.disabled || props.loading}
+            >
+            </input>
+        }
         <div className=''>
           {
             isOpen

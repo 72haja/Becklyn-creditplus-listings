@@ -49,3 +49,38 @@ export const Objects: Story = {
     ],
   }
 };
+
+export const NoItemsInList_String: Story = {
+  args: {
+    labe: 'Stadt',
+    placeholder: 'Wähle eine Stadt',
+    items: [],
+    itemsAreStrings: true,
+  }
+};
+
+export const NoItemsInList_Object: Story = {
+  args: {
+    labe: 'Stadt',
+    placeholder: 'Wähle eine Stadt',
+    items: [],
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    labe: 'Stadt',
+    placeholder: 'Wähle eine Stadt',
+    items: ['Berlin', 'Bremen', 'Hamburg', 'München'],
+    disabled: true,
+  }
+};
+
+export const Loading: Story = {
+  args: {
+    labe: 'Stadt',
+    placeholder: 'Wähle eine Stadt',
+    items: ['Berlin', 'Bremen', 'Hamburg', 'München'],
+    loading: true,
+  }
+};

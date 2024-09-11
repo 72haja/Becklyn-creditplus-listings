@@ -1,9 +1,10 @@
 import { DropdownListElement } from '@/app/components/ds/DropdownListElement';
+import { DropdownListElementType } from '@/app/types/DropdownListElementType';
 import { useMemo } from 'react';
 
 export type DropdownListProps = {
   active: boolean,
-  items: string[] | { label: string, value: string }[],
+  items: string[] | DropdownListElementType[],
   value: string,
   onChange: (value: string) => void,
   itemsAreStrings: boolean,
@@ -15,21 +16,25 @@ export const DropdownList = ({
   ...props
 }) => {
 
-  const filteredItems: string[] | { label: string, value: string }[] = useMemo(() => {
+  const filteredItems: string[] | DropdownListElementType[] = useMemo(() => {
+    if (props.items.length === 0) {
+      return ['Keine Ergebnisse']
+    }
+
     if (props.search) {
       return props.items
-        .filter((item: string | { label: string, value: string }) => {
+        .filter((item: string | DropdownListElementType) => {
           if (typeof item === 'string') {
             return item.toLowerCase().includes(props.search.toLowerCase());
           }
           return item.label.toLowerCase().includes(props.search.toLowerCase());
         })
         .toSorted(
-          (a: string | { label: string, value: string }, b: string | { label: string, value: string }) => {
+          (a: string | DropdownListElementType, b: string | DropdownListElementType) => {
             if (typeof a === 'string') {
               return a.localeCompare(b as string);
             }
-            return a.label.localeCompare((b as { label: string, value: string }).label);
+            return a.label.localeCompare((b as DropdownListElementType).label);
           }
         );
     }
@@ -38,17 +43,35 @@ export const DropdownList = ({
 
 
   return (
-    <div className={['absolute w-full top-0 left-0 shadow-menu-shadow bg-gray-50 rounded-lg overflow-clip', active ? 'grid' : 'hidden'].join(' ')} onClick={props.onClick}>
+    <div
+      className={[
+        'absolute w-full top-0 left-0 shadow-menu-shadow bg-gray-50 rounded-lg overflow-clip',
+        active ? 'grid' : 'hidden'
+      ].join(' ')}
+      onClick={props.onClick}
+    >
       {
         props.itemsAreStrings
           ? (filteredItems as string[]).map((item, index) => {
             return (
-              <DropdownListElement key={index} label={item} active={item === props.value} onClick={() => props.onChange(item)} />
+              <DropdownListElement
+                key={index}
+                label={item}
+                active={item === props.value}
+                disabled={props.items.length === 0}
+                onClick={() => props.onChange(item)}
+              />
             );
           })
-          : (filteredItems as { label: string, value: string }[]).map((item, index) => {
+          : (filteredItems as DropdownListElementType[]).map((item, index) => {
             return (
-              <DropdownListElement key={index} label={item.label} active={item.value === props.value} onClick={() => props.onChange(item.value)} />
+              <DropdownListElement
+                key={index}
+                label={item.label}
+                active={item.value === props.value}
+                disabled={item.disabled}
+                onClick={() => props.onChange(item.value)}
+              />
             );
           })
       }
