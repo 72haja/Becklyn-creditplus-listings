@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { useArgs } from '@storybook/preview-api';
-import { Pagination } from '../../app/components/pagination/Pagination';
 import { useState } from 'react';
+import { Pagination } from '../../app/components/pagination/Pagination';
 
 const meta = {
   title: 'Pagination/Pagination',
