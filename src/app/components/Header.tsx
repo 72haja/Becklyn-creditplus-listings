@@ -2,43 +2,30 @@ import { Dropdown } from "@/app/components/ds/Dropdown";
 import { graphql } from "@/app/services/graphql";
 import { useQuery } from 'urql';
 
-const BereichsQuery = graphql(`
-  query BereichListe($limit: Int = 10) {
-    bereichCollection(limit: $limit) {
-      items {
-        name
-        id
-      }
-    }
-  }
-`);
-
-const StadtQuery = graphql(`
-  query StadtListe($limit: Int = 10) {
-    stadtCollection(limit: $limit) {
-      items {
-        stadt
-        id
-      }
-    }
-  }
-`);
-
-const ErfahrungslevelQuery = graphql(`
-  query ErfahrungslevelListe($limit: Int = 10) {
-    erfahrungslevelCollection(limit: $limit) {
-      items {
-        erfahrungslevel
-        id
-      }
-    }
-  }
-`);
-
 const JobOfferQuery = graphql(`
   query JobOfferList($limit: Int = 10) {
-    jobOfferCollection(limit: $limit) {
+    jobCollection(
+      limit: $limit
+      where: {
+        available: true
+      }
+    ) {
       total
+      items {
+        locationsCollection {
+          items {
+            city
+          }
+        }
+        levelsCollection {
+          items {
+            title
+          }
+        }
+        department {
+          title
+        }
+      }
     }
   }
 `);
@@ -56,64 +43,97 @@ export const Header = ({
   ...props
 }) => {
 
-  const [allWorkTypesResult] = useQuery({
-    query: BereichsQuery,
-  });
-
-  const [allLocationsResult] = useQuery({
-    query: StadtQuery,
-  });
-
-  const [allExperienceLevelsResult] = useQuery({
-    query: ErfahrungslevelQuery,
-  });
-
   const [allJobOffersResult] = useQuery({
     query: JobOfferQuery,
   });
 
   return (
-    <div className="bg-gray-75 lg:px-[256px] lg:pt-[100px] lg:pb-[60px] grid grid-cols-1">
-      <span className="unnamed-character-style-8 text-primary text-center">
+    <div
+      className="bg-gray-75 grid grid-cols-1
+        desktop:px-[256px] desktop:pt-[100px] desktop:pb-[60px]
+        tablet:px-[64px] tablet:pt-[50px] tablet:pb-[80px]
+        px-[16px] pt-[30px] pb-[60px]"
+    >
+      <span
+        className="text-center
+        tablet:unnamed-character-style-8 tablet:text-primary
+        unnamed-character-style-9 text-primary"
+      >
         {
-          allJobOffersResult.data?.jobOfferCollection?.total
-            ? allJobOffersResult.data?.jobOfferCollection?.total + ' '
+          allJobOffersResult.data?.jobCollection?.total
+            ? allJobOffersResult.data?.jobCollection?.total + ' '
             : '... '
         }
         offene Stellen bei Creditplus
       </span>
-      <span className="pt-[18px] unnamed-character-style-2 leading-[68px] font-bold text-secondary text-center">Hier beginnt deine Zukunft</span>
-      <div className="grid grid-cols-3 gap-6 mt-[30px]">
+      <span
+        className="font-bold text-secondary text-center
+          desktop:unnamed-character-style-2 leading-[68px] desktop:font-bold desktop:text-secondary
+          tablet:pt-[18px] tablet:unnamed-character-style-3 tablet:font-bold tablet:text-secondary
+          pt-[12px] unnamed-character-style-4"
+      >
+        Hier beginnt deine Zukunft
+      </span>
+      <div
+        className="grid
+          desktop:gap-6
+          tablet:grid-cols-3 tablet:grid-rows-1 tablet:gap-5 tablet:mt-[30px]
+          grid-cols-1 grid-rows-3 gap-3 mt-[24px]"
+      >
         <Dropdown
           placeholder='Wähle einen Bereich'
-          items={allWorkTypesResult.data?.bereichCollection?.items
+          items={allJobOffersResult.data?.jobCollection?.items
             .filter((item) => item !== null)
-            .map((item) => ({ label: item.name, value: item.id }))
+            .reduce((acc, item) => {
+              if(
+                !item.department?.title
+                || acc.includes(item.department.title)
+              ) return acc;
+            
+              acc.push(item.department.title);
+              return acc;
+            }, [] as string[])
             ?? []
           }
-          loading={allWorkTypesResult.fetching}
+          loading={allJobOffersResult.fetching}
           value={props.workType}
           onChange={props.onWorkTypeChange}
         />
         <Dropdown
           placeholder='Wähle eine Stadt'
-          items={allLocationsResult.data?.stadtCollection?.items
+          items={allJobOffersResult.data?.jobCollection?.items
             .filter((item) => item !== null)
-            .map((item) => ({ label: item.stadt, value: item.id }))
+            .reduce((acc, item) => {
+              if(
+                !item.locationsCollection?.items[0]?.city
+                || acc.includes(item.locationsCollection.items[0].city)
+              ) return acc;
+            
+              acc.push(item.locationsCollection.items[0].city);
+              return acc;
+            }, [] as string[])
             ?? []
           }
-          loading={allLocationsResult.fetching}
+          loading={allJobOffersResult.fetching}
           value={props.location}
           onChange={props.onLocationChange}
         />
         <Dropdown
           placeholder='Wähle ein Erfahrungslevel'
-          items={allExperienceLevelsResult.data?.erfahrungslevelCollection?.items
+          items={allJobOffersResult.data?.jobCollection?.items
             .filter((item) => item !== null)
-            .map((item) => ({ label: item.erfahrungslevel, value: item.id }))
+            .reduce((acc, item) => {
+              if(
+                !item.levelsCollection?.items[0]?.title
+                || acc.includes(item.levelsCollection.items[0].title)
+              ) return acc;
+            
+              acc.push(item.levelsCollection.items[0].title);
+              return acc;
+            }, [] as string[])
             ?? []
           }
-          loading={allExperienceLevelsResult.fetching}
+          loading={allJobOffersResult.fetching}
           value={props.experienceLevel}
           onChange={props.onExperienceLevelChange}
         />

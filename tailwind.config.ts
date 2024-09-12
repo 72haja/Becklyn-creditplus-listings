@@ -3,12 +3,16 @@ import { Config } from 'tailwindcss/types/config';
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/stories/**/*.stories.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/stories/**/*.stories.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      'desktop': '1440px',
+      'tablet': '768px',
+    },
     fontSize: {
       'display-2xl': ['72px', { lineHeight: '90px', letterSpacing: '-2%' }],
       'display-xl': ['60px', { lineHeight: '72px', letterSpacing: '-2%' }],

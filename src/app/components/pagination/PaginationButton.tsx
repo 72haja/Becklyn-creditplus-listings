@@ -17,13 +17,15 @@ export const PaginationButton = ({
     <button
       type="button"
       className={"border-none flex gap-1 items-center h-[15px]"}
-      {...props}
+      onClick={props.onClick}
     >
       { 
         props.direction === 'prev' && <FiArrowLeft className='text-gray-600 size-[19px]' />
       }
       <span
-        className={'font-gotham font-medium text-text-sm text-gray-600'}
+        className='font-gotham font-medium text-text-sm text-gray-600
+          tablet:block
+          hidden'
       >
         { props.direction === 'prev' ? 'Vorherige' : 'Nächste' }
       </span>

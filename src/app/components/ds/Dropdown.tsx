@@ -22,6 +22,7 @@ export const Dropdown = ({
 
   function onItemChange(value: string) {
     setSearch('');
+    setIsOpen(false);
     if (value === props.value) {
       props.onChange('');
     } else {

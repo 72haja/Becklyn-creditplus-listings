@@ -14,11 +14,13 @@ export const StellenListButton = ({
   return (
     <button
       type="button"
-      className={"border-none flex gap-[8px] items-center h-[18px]"}
+      className="border-none flex gap-[8px] items-center h-[18px]"
       {...props}
     >
       <span
-        className={'font-gotham font-medium text-text-md text-primary'}
+        className='font-gotham font-medium text-text-md text-primary
+          tablet:block
+          hidden'
       >
         Stelle anzeigen
       </span>

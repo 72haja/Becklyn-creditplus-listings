@@ -7,31 +7,77 @@ import { useQuery } from "urql";
 const JobOfferQuery = graphql(`
   query JobOfferList(
     $limit: Int = 10,
-    $skip: Int = 0,
-    $workTypeId: Int = null,
-    $locationId: Int = null,
-    $experienceLevelId: Int = null) {
-    jobOfferCollection(
-      limit: $limit, 
+    $skip: Int = 0
+    $workType: String = null,
+    $location: String = null,
+    $level: String = null) {
+    jobCollection(
+      limit: $limit
       skip: $skip, 
       where: {
+        available: true
         AND: [
-          { bereich: { id: $workTypeId } },
-          { stadt: { id: $locationId } },
-          { erfahrungslevel: { id: $experienceLevelId } }
+          { department: { title: $workType } },
+          { locations: { city: $location } },
+          { levels: { title: $level } }
         ]
       }
     ) {
-      items {
-        stadt { stadt }
-        bereich { name }
-        erfahrungslevel { erfahrungslevel }
-        arbeitszeitmodell
-      }
       total
+      items {
+        available
+        locationsCollection {
+          items {
+            city
+          }
+        }
+        levelsCollection {
+          items {
+            title
+          }
+        }
+        department {
+          title
+        }
+        typesCollection {
+          items {
+            title
+          }
+        }
+        name
+      }
     }
   }
 `);
+
+// const JobOfferQuery = graphql(`
+//   query JobOfferList(
+//     $limit: Int = 10,
+//     $skip: Int = 0,
+//     $workTypeId: Int = null,
+//     $locationId: Int = null,
+//     $experienceLevelId: Int = null) {
+//     jobOfferCollection(
+//       limit: $limit, 
+//       skip: $skip, 
+//       where: {
+//         AND: [
+//           { bereich: { id: $workTypeId } },
+//           { stadt: { id: $locationId } },
+//           { erfahrungslevel: { id: $experienceLevelId } }
+//         ]
+//       }
+//     ) {
+//       items {
+//         stadt { stadt }
+//         bereich { name }
+//         erfahrungslevel { erfahrungslevel }
+//         arbeitszeitmodell
+//       }
+//       total
+//     }
+//   }
+// `);
 
 export type BodyProps = {
   workType: string,
@@ -50,37 +96,53 @@ export const Body = ({
     variables: {
       limit: 10,
       skip: (currentPage - 1) * 10,
-      workTypeId: props.workType || null,
-      locationId: props.location || null,
-      experienceLevelId: props.experienceLevel || null,
+      workType: props.workType || null,
+      location: props.location || null,
+      level: props.experienceLevel || null,
     },
   });
 
   const totalPages = useMemo(() => {
-    return Math.ceil((allJobOffersResult.data?.jobOfferCollection?.total || 0) / 10);
-  }, [allJobOffersResult.data?.jobOfferCollection?.total]);
+    return Math.ceil((allJobOffersResult.data?.jobCollection?.total || 0) / 10);
+  }, [allJobOffersResult.data?.jobCollection?.total]);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [props.workType, props.location, props.experienceLevel]);
 
   return (
-    <div className="bg-gray-50 lg:px-[308px] lg:py-[60px] grid grid-cols-1">
-      <div className="grid grid-cols-1 gap-6">
+    <div
+      className="bg-gray-50 grid grid-cols-1
+        desktop:px-[308px]
+        tablet:px-16
+        px-4 py-[60px]
+      "
+    >
+      <div
+        className="grid grid-cols-1
+          tablet:gap-6
+          gap-[10px]"
+      >
         {
-          allJobOffersResult.data?.jobOfferCollection?.items.map((jobOffer, index) => (
-            jobOffer &&
+          allJobOffersResult.data?.jobCollection?.items
+            .filter((jobOffer) => jobOffer != null)
+            .map((jobOffer, index) => (
             <StellenListElement
               key={index}
-              jobTitle={jobOffer.bereich?.name || ''}
-              location={jobOffer.stadt?.stadt || ''}
-              title={jobOffer.erfahrungslevel?.erfahrungslevel || ''}
-              time={jobOffer.arbeitszeitmodell || ''}
+              jobTitle={jobOffer.name || ''}
+              location={jobOffer.locationsCollection?.items[0]?.city || ''}
+              title={jobOffer.department?.title || ''}
+              time={jobOffer.typesCollection?.items[0]?.title || ''}
             />
           ))
         }
       </div>
-      <div className="mt-[48px] flex justify-between">
+      <div 
+        className="flex justify-between
+          desktop:mt-12
+          tablet:mt-8
+          mt-[30px]"
+      >
         <Pagination
           current={currentPage}
           total={totalPages}

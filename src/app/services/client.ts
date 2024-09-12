@@ -10,6 +10,7 @@ const clientOptions: ClientOptions = {
     return {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
     };
   },

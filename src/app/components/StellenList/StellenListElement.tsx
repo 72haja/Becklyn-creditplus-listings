@@ -18,7 +18,7 @@ export const StellenListElement = ({
         <p className="unnamed-character-style-9 text-primary">
           {props.title}
         </p>
-        <p className="unnamed-character-style-7 mt-[10px] text-unnamed-color-292929">
+        <p className="w-full text-wrap unnamed-character-style-7 mt-[10px] text-unnamed-color-292929">
           {props.jobTitle}
         </p>
         <div className="flex items-center text-gray-500 text-sm mt-[21px] gap-6">

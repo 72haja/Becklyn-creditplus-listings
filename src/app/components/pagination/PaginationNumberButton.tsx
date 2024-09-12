@@ -31,7 +31,7 @@ export const PaginationNumberButton = ({
     <button
       type="button"
       className={["border-none rounded-full grid place-items-center size-10", bgColor].join(' ')}
-      {...props}
+      onClick={props.onClick}
       disabled={isPlaceholder}
     >
       <span

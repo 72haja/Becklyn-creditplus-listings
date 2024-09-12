@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { useArgs } from '@storybook/preview-api';
 import { Pagination } from '../../app/components/pagination/Pagination';
+import { useState } from 'react';
 
 const meta = {
   title: 'Pagination/Pagination',
@@ -10,10 +11,10 @@ const meta = {
   tags: ['autodocs'],
   args: { onCurrentChange: fn() },
   render: function Render(args): JSX.Element {
-    const [{ current }, updateArgs] = useArgs();
+    const [current, updateArgs] = useState(1);
 
     function onCurrentChange(value: number) {
-      updateArgs({ current: value });
+      updateArgs(value);
     }
 
     return <Pagination
