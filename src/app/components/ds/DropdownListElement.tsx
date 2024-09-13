@@ -16,7 +16,7 @@ export const DropdownListElement = ({
   }
 
   return (
-    <div
+    <button
       className={[
         'flex gap-2 items-center px-[15px] py-[13px] ',
         active ? 'bg-primary-50' : 'bg-gray-50',
@@ -25,16 +25,17 @@ export const DropdownListElement = ({
       onClick={handleClick}
     >
       <span
-        className={
-          ['unnamed-character-style-8 w-full', active ? 'text-primary-700' : 'text-gray-900'].join(' ')
-        }
+        className={[
+          'unnamed-character-style-8 w-full text-start', 
+          active ? 'text-primary-700' : 'text-gray-900'
+        ].join(' ')}
       >
         {props.label}
       </span>
       {
         active && <FiCheck className='size-[21px] text-primary-700' />
       }
-    </div>
+    </button>
   );
 }
 
