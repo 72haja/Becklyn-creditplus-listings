@@ -66,10 +66,11 @@ export const DropdownActivator = ({
         className={`grid items-center gap-1 bg-gray-50
           ${props.value ? 'grid-cols-[max-content_1fr_max-content]' : 'grid-cols-[1fr_max-content]'}
           relative w-full border rounded-lg pl-[14px] pr-[9px] py-[13px]
-          ${isOpen ? 'border-primary-300' : 'border-[#C3C3C3]'}
+          hover:border-[#838383]
+          ${isOpen ? '!border-primary-300' : 'border-[#C3C3C3]'}
           transition duration-150 ease-in-out
-          focus-within:ring-4 focus-within:ring-primary-100
-        focus-within:border-primary-300 hover:border-[#838383]
+          focus-within:!ring-4 focus-within:!ring-primary-100
+          focus-within:!border-primary-300 
           ${props.loading && 'cursor-wait'}`}
         onClick={handleOnClick}
       >
